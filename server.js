@@ -1,21 +1,23 @@
 const express = require('express');
 const { MercadoPagoConfig, Payment } = require('mercadopago');
 
+require('./robo'); // inicia o bot whatsapp
+
 const app = express();
 app.use(express.json());
 
-// coloque seu access token
+// access token
 const client = new MercadoPagoConfig({
-  accessToken: 'TEST-28342705-2aee-4238-bc6e-81d478713934'
+  accessToken: 'SEU_ACCESS_TOKEN'
 });
 
 app.post('/webhook', async (req, res) => {
 
-  console.log('Webhook recebido:', req.body);
+  console.log("Webhook recebido:", req.body);
 
   try {
 
-    if(req.body.data){
+    if(req.body.type === "payment"){
 
       const payment = new Payment(client);
 
@@ -36,9 +38,10 @@ app.post('/webhook', async (req, res) => {
   }
 
   res.sendStatus(200);
-
 });
 
-app.listen(3000, () => {
-  console.log('Servidor rodando na porta 3000');
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+  console.log("Servidor rodando");
 });
