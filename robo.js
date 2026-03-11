@@ -4,24 +4,21 @@ const qrcode = require('qrcode-terminal');
 const client = new Client({
   authStrategy: new LocalAuth(),
   puppeteer: {
-    executablePath: process.env.PUPPETEER_EXECUTABLE_PATH,
     headless: true,
     args: [
       '--no-sandbox',
-      '--disable-setuid-sandbox',
-      '--disable-dev-shm-usage',
-      '--disable-gpu'
+      '--disable-setuid-sandbox'
     ]
   }
 });
 
 client.on('qr', qr => {
   qrcode.generate(qr, { small: true });
-  console.log('Escaneie o QR code');
+  console.log("Escaneie o QR Code");
 });
 
 client.on('ready', () => {
-  console.log('Bot conectado!');
+  console.log("Bot conectado!");
 });
 
 client.initialize();
@@ -446,6 +443,7 @@ client.on("message", async msg => {
     }
 
 });
+
 
 
 
