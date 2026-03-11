@@ -1,28 +1,27 @@
 // =======================================================
-// BOT WHATSAPP
+// BOT DE PIZZARIA COMPLETO – FLUXO CORRIGIDO E AJUSTADO
 // =======================================================
 
 const { Client } = require('whatsapp-web.js');
 const qrcode = require('qrcode-terminal');
 
+// ======================= CLIENTE =======================
+
 const client = new Client({
     puppeteer: {
         headless: true,
-        args: [
-            '--no-sandbox',
-            '--disable-setuid-sandbox',
-            '--disable-dev-shm-usage'
-        ]
+        args: ['--no-sandbox', '--disable-setuid-sandbox']
     }
 });
 
 client.on('qr', qr => {
-    console.log("QR RECEBIDO");
+    console.clear();
     qrcode.generate(qr, { small: true });
 });
 
 client.on('ready', () => {
-    console.log("✅ BOT CONECTADO");
+    console.clear();
+    console.log("✅ BOT CONECTADO COM SUCESSO");
 });
 
 client.initialize();
@@ -445,10 +444,4 @@ client.on("message", async msg => {
             );
         }
     }
-
 });
-
-
-
-
-
